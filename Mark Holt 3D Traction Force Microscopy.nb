@@ -1,0 +1,1176 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     42486,       1168]
+NotebookOptionsPosition[     42028,       1153]
+NotebookOutlinePosition[     42432,       1169]
+CellTagsIndexPosition[     42389,       1166]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"file", "=", "\"\<User file\>\""}], ";"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"part", "=", "120"}], ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Do", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"stackIn1", "=", 
+      RowBox[{"Import", "[", 
+       RowBox[{"file", ",", 
+        RowBox[{"{", 
+         RowBox[{"\"\<ImageList\>\"", ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Partition", "[", 
+             RowBox[{
+              RowBox[{"Range", "[", 
+               RowBox[{"Import", "[", 
+                RowBox[{"file", ",", "\"\<ImageCount\>\""}], "]"}], "]"}], 
+              ",", "part"}], "]"}], "[", 
+            RowBox[{"[", "in", "]"}], "]"}], "[", 
+           RowBox[{"[", 
+            RowBox[{"1", ";;", 
+             RowBox[{"-", "1"}], ";;", "2"}], "]"}], "]"}]}], "}"}]}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"stackIn2", "=", 
+      RowBox[{"Import", "[", 
+       RowBox[{"file", ",", 
+        RowBox[{"{", 
+         RowBox[{"\"\<ImageList\>\"", ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Partition", "[", 
+             RowBox[{
+              RowBox[{"Range", "[", 
+               RowBox[{"Import", "[", 
+                RowBox[{"file", ",", "\"\<ImageCount\>\""}], "]"}], "]"}], 
+              ",", "part"}], "]"}], "[", 
+            RowBox[{"[", 
+             RowBox[{"in", "+", "1"}], "]"}], "]"}], "[", 
+           RowBox[{"[", 
+            RowBox[{"1", ";;", 
+             RowBox[{"-", "1"}], ";;", "2"}], "]"}], "]"}]}], "}"}]}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"len", "=", 
+      RowBox[{"Import", "[", 
+       RowBox[{"file", ",", "\"\<ImageCount\>\""}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"stackIn", "=", 
+      RowBox[{"Transpose", "[", 
+       RowBox[{"{", 
+        RowBox[{"stackIn1", ",", "stackIn2"}], "}"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"s1log", "=", 
+      RowBox[{"GaussianFilter", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"ImageAdjust", "@", 
+           RowBox[{"ImageApply", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"Log", "[", 
+               RowBox[{
+                RowBox[{"#", "^", "0.45"}], "+", "1"}], "]"}], "&"}], ",", 
+             "#"}], "]"}]}], "&"}], "@", 
+         RowBox[{"ImageAdjust", "@", 
+          RowBox[{"Image3D", "@", "stackIn1"}]}]}], ",", "0"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"s2log", "=", 
+      RowBox[{"GaussianFilter", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"ImageAdjust", "@", 
+           RowBox[{"ImageApply", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"Log", "[", 
+               RowBox[{
+                RowBox[{"#", "^", "0.45"}], "+", "1"}], "]"}], "&"}], ",", 
+             "#"}], "]"}]}], "&"}], "@", 
+         RowBox[{"ImageAdjust", "@", 
+          RowBox[{"Image3D", "@", "stackIn2"}]}]}], ",", "0"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"log", "=", 
+      RowBox[{"Image3DSlices", "[", 
+       RowBox[{"ColorCombine", "[", 
+        RowBox[{"{", 
+         RowBox[{"s1log", ",", "s2log", ",", "s1log"}], "}"}], "]"}], "]"}]}],
+      ";", "\[IndentingNewLine]", 
+     RowBox[{"i3dAlignedcola", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ColorCombine", "[", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"#", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], ",", 
+           RowBox[{"#", "[", 
+            RowBox[{"[", "2", "]"}], "]"}], ",", 
+           RowBox[{"#", "[", 
+            RowBox[{"[", "1", "]"}], "]"}]}], "}"}], "]"}], "&"}], "/@", 
+       RowBox[{"Transpose", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Image3DSlices", "@", "s1log"}], ",", 
+          RowBox[{"Image3DSlices", "@", "s2log"}]}], "}"}], "]"}]}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Export", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"StringDrop", "[", 
+         RowBox[{"file", ",", 
+          RowBox[{"-", "4"}]}], "]"}], "<>", "\"\<frame \>\"", "<>", 
+        RowBox[{"ToString", "[", "in", "]"}], "<>", 
+        "\"\< 3D matrix.tif\>\""}], ",", 
+       RowBox[{"Image3D", "[", "i3dAlignedcola", "]"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"xya", "=", 
+      RowBox[{"Image3DSlices", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"ImageApply", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"#", "^", "1"}], "&"}], ",", 
+           RowBox[{"ImageAdjust", "@", "#"}]}], "]"}], "&"}], "@", 
+        RowBox[{"ImageResize", "[", 
+         RowBox[{
+          RowBox[{"Image3D", "[", "i3dAlignedcola", "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"512", ",", "512", ",", "90"}], "}"}], ",", 
+          RowBox[{"Resampling", "->", "\"\<Lanczos\>\""}]}], "]"}]}], "]"}]}],
+      ";", "\[IndentingNewLine]", 
+     RowBox[{"xza", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ImageResize", "[", 
+         RowBox[{"#", ",", 
+          RowBox[{"{", 
+           RowBox[{"512", ",", "90"}], "}"}], ",", 
+          RowBox[{"Resampling", "->", "\"\<Lanczos\>\""}]}], "]"}], "&"}], "/@", 
+       RowBox[{"Image3DSlices", "[", 
+        RowBox[{
+         RowBox[{"Image3D", "[", "i3dAlignedcola", "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ";;", 
+           RowBox[{"-", "1"}]}], "}"}], ",", "2"}], "]"}]}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"yza", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ImageResize", "[", 
+         RowBox[{"#", ",", 
+          RowBox[{"{", 
+           RowBox[{"512", ",", "90"}], "}"}], ",", 
+          RowBox[{"Resampling", "->", "\"\<Lanczos\>\""}]}], "]"}], "&"}], "/@", 
+       RowBox[{"Image3DSlices", "[", 
+        RowBox[{
+         RowBox[{"Image3D", "[", "i3dAlignedcola", "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ";;", 
+           RowBox[{"-", "1"}]}], "}"}], ",", "3"}], "]"}]}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"tracksxy", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Transpose", "[", 
+         RowBox[{
+          RowBox[{"Transpose", "[", 
+           RowBox[{"ImageFeatureTrack", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", "1", "]"}], "]"}], ",", 
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "@", 
+              RowBox[{"ColorSeparate", "[", 
+               RowBox[{"ImagePad", "[", 
+                RowBox[{
+                 RowBox[{"ImageResize", "[", 
+                  RowBox[{"#", ",", 
+                   RowBox[{"{", 
+                    RowBox[{"512", ",", "512"}], "}"}]}], "]"}], ",", "20", 
+                 ",", "\"\<Reflected\>\""}], "]"}], "]"}]}], ",", 
+             RowBox[{"Flatten", "[", 
+              RowBox[{
+               RowBox[{"Table", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"i", ",", "j"}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"j", ",", "1", ",", "552", ",", "2"}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"i", ",", "1", ",", "552", ",", "2"}], "}"}]}], 
+                "]"}], ",", "1"}], "]"}], ",", 
+             RowBox[{"Tolerance", "->", "0.00001"}]}], "]"}], "]"}], "/.", 
+          " ", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"x_", ",", "y_"}], "}"}], "/;", 
+            RowBox[{"y", "==", 
+             RowBox[{"Missing", "[", "]"}]}]}], "->", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"0.", ",", "0."}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"0.", ",", "0."}], "}"}]}], "}"}]}]}], "]"}], "&"}], "/@",
+        "xya"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"dispxy", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Partition", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "[", 
+           RowBox[{
+            RowBox[{"Differences", "[", "#", "]"}], ",", "1"}], "]"}], ",", 
+          "276"}], "]"}], "&"}], "/@", "tracksxy"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"tracksxz", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Transpose", "[", 
+         RowBox[{
+          RowBox[{"Transpose", "[", 
+           RowBox[{"ImageFeatureTrack", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", "1", "]"}], "]"}], ",", 
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "@", 
+              RowBox[{"ColorSeparate", "[", 
+               RowBox[{"ImagePad", "[", 
+                RowBox[{
+                 RowBox[{"ImageResize", "[", 
+                  RowBox[{"#", ",", 
+                   RowBox[{"{", 
+                    RowBox[{"512", ",", "90"}], "}"}]}], "]"}], ",", "20", 
+                 ",", "\"\<Reflected\>\""}], "]"}], "]"}]}], ",", 
+             RowBox[{"Flatten", "[", 
+              RowBox[{
+               RowBox[{"Table", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"i", ",", "j"}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"j", ",", "1", ",", "130", ",", "2"}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"i", ",", "1", ",", "552", ",", "2"}], "}"}]}], 
+                "]"}], ",", "1"}], "]"}], ",", 
+             RowBox[{"Tolerance", "->", "0.00001"}]}], "]"}], "]"}], "/.", 
+          " ", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"x_", ",", "y_"}], "}"}], "/;", 
+            RowBox[{"y", "==", 
+             RowBox[{"Missing", "[", "]"}]}]}], "->", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"0.", ",", "0."}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"0.", ",", "0."}], "}"}]}], "}"}]}]}], "]"}], "&"}], "/@",
+        "xza"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"dispxz", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Partition", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "[", 
+           RowBox[{
+            RowBox[{"Differences", "[", "#", "]"}], ",", "1"}], "]"}], ",", 
+          "276"}], "]"}], "&"}], "/@", "tracksxz"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"tracksyz", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Transpose", "[", 
+         RowBox[{
+          RowBox[{"Transpose", "[", 
+           RowBox[{"ImageFeatureTrack", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", "1", "]"}], "]"}], ",", 
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "@", 
+              RowBox[{"ColorSeparate", "[", 
+               RowBox[{"ImagePad", "[", 
+                RowBox[{
+                 RowBox[{"ImageResize", "[", 
+                  RowBox[{"#", ",", 
+                   RowBox[{"{", 
+                    RowBox[{"512", ",", "90"}], "}"}]}], "]"}], ",", "20", 
+                 ",", "\"\<Reflected\>\""}], "]"}], "]"}]}], ",", 
+             RowBox[{"Flatten", "[", 
+              RowBox[{
+               RowBox[{"Table", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"i", ",", "j"}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"j", ",", "1", ",", "130", ",", "2"}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"i", ",", "1", ",", "552", ",", "2"}], "}"}]}], 
+                "]"}], ",", "1"}], "]"}], ",", 
+             RowBox[{"Tolerance", "->", "0.00001"}]}], "]"}], "]"}], "/.", 
+          " ", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"x_", ",", "y_"}], "}"}], "/;", 
+            RowBox[{"y", "==", 
+             RowBox[{"Missing", "[", "]"}]}]}], "->", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"0.", ",", "0."}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"0.", ",", "0."}], "}"}]}], "}"}]}]}], "]"}], "&"}], "/@",
+        "yza"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"dispyz", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Partition", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "[", 
+           RowBox[{
+            RowBox[{"Differences", "[", "#", "]"}], ",", "1"}], "]"}], ",", 
+          "276"}], "]"}], "&"}], "/@", "tracksyz"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"dispxyRes", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ImageResize", "[", 
+         RowBox[{
+          RowBox[{"ImagePad", "[", 
+           RowBox[{
+            RowBox[{"Image", "[", "#", "]"}], ",", 
+            RowBox[{"-", "10"}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"512", ",", "512"}], "}"}], ",", 
+          RowBox[{"Resampling", "->", "\"\<Lanczos\>\""}]}], "]"}], "&"}], "/@",
+        "dispxy"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"dispxzRes", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ImageResize", "[", 
+         RowBox[{
+          RowBox[{"ImagePad", "[", 
+           RowBox[{
+            RowBox[{"Image", "[", "#", "]"}], ",", 
+            RowBox[{"-", "10"}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"512", ",", "90"}], "}"}], ",", 
+          RowBox[{"Resampling", "->", "\"\<Lanczos\>\""}]}], "]"}], "&"}], "/@",
+        "dispxz"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"dispyzRes", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ImageResize", "[", 
+         RowBox[{
+          RowBox[{"ImagePad", "[", 
+           RowBox[{
+            RowBox[{"Image", "[", "#", "]"}], ",", 
+            RowBox[{"-", "10"}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"512", ",", "90"}], "}"}], ",", 
+          RowBox[{"Resampling", "->", "\"\<Lanczos\>\""}]}], "]"}], "&"}], "/@",
+        "dispyz"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"x1", "=", 
+      RowBox[{"ImageApply", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "&"}], ",", 
+        RowBox[{"Image3D", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"ImageReflect", "[", 
+            RowBox[{"#", ",", 
+             RowBox[{"Top", "->", "Bottom"}]}], "]"}], "&"}], "/@", 
+          RowBox[{"Reverse", "@", "dispxzRes"}]}], "]"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"z1", "=", 
+      RowBox[{"ImageApply", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "&"}], ",", 
+        RowBox[{"Image3D", "[", "dispxzRes", "]"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"y1", "=", 
+      RowBox[{"ImageApply", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "&"}], ",", 
+        RowBox[{"Image3D", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"ImageReflect", "[", 
+            RowBox[{"#", ",", 
+             RowBox[{"Top", "->", "Bottom"}]}], "]"}], "&"}], "/@", 
+          RowBox[{"Reverse", "@", "dispyzRes"}]}], "]"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"z2", "=", 
+      RowBox[{"ImageApply", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "&"}], ",", 
+        RowBox[{"Image3D", "[", "dispyzRes", "]"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"x2", "=", 
+      RowBox[{"ImageApply", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "&"}], ",", 
+        RowBox[{"Image3D", "[", "dispxyRes", "]"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"y2", "=", 
+      RowBox[{"ImageApply", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "&"}], ",", 
+        RowBox[{"Image3D", "[", "dispxyRes", "]"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"allSlicespre", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Image3DSlices", "[", 
+         RowBox[{
+          RowBox[{"#", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"1", ";;", 
+            RowBox[{"-", "1"}]}], "}"}], ",", 
+          RowBox[{"#", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}], "]"}], "&"}], "/@", 
+       RowBox[{"Transpose", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+           "x1", ",", "x2", ",", "y1", ",", "y2", ",", "z1", ",", "z2"}], 
+           "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"2", ",", "1", ",", "2", ",", "1", ",", "2", ",", "2"}], 
+           "}"}]}], "}"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"allSlices", "=", 
+      RowBox[{"Transpose", "@", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{"ImageRotate", "[", 
+            RowBox[{
+             RowBox[{"ImageReflect", "[", 
+              RowBox[{
+               RowBox[{"#", "[", 
+                RowBox[{"[", "1", "]"}], "]"}], ",", 
+               RowBox[{"#", "[", 
+                RowBox[{"[", 
+                 RowBox[{"2", ",", "1"}], "]"}], "]"}]}], "]"}], ",", 
+             RowBox[{
+              RowBox[{"#", "[", 
+               RowBox[{"[", 
+                RowBox[{"2", ",", "2"}], "]"}], "]"}], " ", "Degree"}]}], 
+            "]"}], "&"}], "/@", 
+          RowBox[{"Transpose", "[", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"allSlicespre", "[", 
+              RowBox[{"[", 
+               RowBox[{"All", ",", "tt"}], "]"}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"Top", "->", "Bottom"}], ",", "0"}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"Top", "->", "Bottom"}], ",", "0"}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"Left", "->", "Left"}], ",", 
+                 RowBox[{"-", "90"}]}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"Top", "->", "Bottom"}], ",", "0"}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"Top", "->", "Top"}], ",", "0"}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"Top", "->", "Bottom"}], ",", 
+                 RowBox[{"-", "90"}]}], "}"}]}], "}"}]}], "}"}], "]"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"tt", ",", 
+           RowBox[{"Length", "[", 
+            RowBox[{"allSlicespre", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "]"}]}], "}"}]}], "]"}]}]}], ";",
+      "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"allSlices", "[", 
+       RowBox[{"[", 
+        RowBox[{"5", ";;", "6"}], "]"}], "]"}], "=", 
+      RowBox[{"Reverse", "/@", 
+       RowBox[{"allSlices", "[", 
+        RowBox[{"[", 
+         RowBox[{"5", ";;", "6"}], "]"}], "]"}]}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"kernel3D", "=", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#", "/", 
+          RowBox[{"Total", "[", 
+           RowBox[{"Flatten", "[", "#", "]"}], "]"}]}], "&"}], "[", 
+        RowBox[{"Rescale", "[", 
+         RowBox[{"ImageData", "[", 
+          RowBox[{"ImageApply", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"#", "^", "5"}], "&"}], ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"GaussianMatrix", "[", 
+               RowBox[{"{", 
+                RowBox[{"{", 
+                 RowBox[{"11", ",", "11", ",", "11"}], "}"}], "}"}], "]"}], "//",
+               "Image3D"}], "//", "ImageAdjust"}]}], "]"}], "]"}], "]"}], 
+        "]"}], ")"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"x3", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ImageApply", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Mean", "[", "#", "]"}], "&"}], ",", 
+          RowBox[{"ColorCombine", "[", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Image3D", "[", 
+              RowBox[{"#", "[", 
+               RowBox[{"[", "1", "]"}], "]"}], "]"}], ",", 
+             RowBox[{"Image3D", "[", 
+              RowBox[{"#", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], "]"}]}], "}"}], "]"}]}], "]"}],
+         "&"}], "@", "allSlices"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"x3f", "=", 
+      RowBox[{"Image3D", "[", 
+       RowBox[{"Image3DSlices", "[", 
+        RowBox[{
+         RowBox[{"ImageConvolve", "[", 
+          RowBox[{
+           RowBox[{"ImageClip", "[", 
+            RowBox[{"x3", ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"-", "10"}], ",", "10"}], "}"}]}], "]"}], ",", 
+           "kernel3D"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ";;", 
+           RowBox[{"-", "1"}]}], "}"}], ",", "2"}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"y3", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ImageApply", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Mean", "[", "#", "]"}], "&"}], ",", 
+          RowBox[{"ColorCombine", "[", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Image3D", "[", 
+              RowBox[{"#", "[", 
+               RowBox[{"[", "3", "]"}], "]"}], "]"}], ",", 
+             RowBox[{"Image3D", "[", 
+              RowBox[{"#", "[", 
+               RowBox[{"[", "4", "]"}], "]"}], "]"}]}], "}"}], "]"}]}], "]"}],
+         "&"}], "@", "allSlices"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"y3f", "=", 
+      RowBox[{"Image3D", "[", 
+       RowBox[{"Image3DSlices", "[", 
+        RowBox[{
+         RowBox[{"ImageConvolve", "[", 
+          RowBox[{
+           RowBox[{"ImageClip", "[", 
+            RowBox[{"y3", ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"-", "10"}], ",", "10"}], "}"}]}], "]"}], ",", 
+           "kernel3D"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ";;", 
+           RowBox[{"-", "1"}]}], "}"}], ",", "2"}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"z3", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ImageApply", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Mean", "[", "#", "]"}], "&"}], ",", 
+          RowBox[{"ColorCombine", "[", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Image3D", "[", 
+              RowBox[{"#", "[", 
+               RowBox[{"[", "5", "]"}], "]"}], "]"}], ",", 
+             RowBox[{"Image3D", "[", 
+              RowBox[{"#", "[", 
+               RowBox[{"[", "6", "]"}], "]"}], "]"}]}], "}"}], "]"}]}], "]"}],
+         "&"}], "@", "allSlices"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"z3f", "=", 
+      RowBox[{"Image3D", "[", 
+       RowBox[{"Image3DSlices", "[", 
+        RowBox[{
+         RowBox[{"ImageConvolve", "[", 
+          RowBox[{
+           RowBox[{"ImageClip", "[", 
+            RowBox[{"z3", ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"-", "10"}], ",", "10"}], "}"}]}], "]"}], ",", 
+           "kernel3D"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ";;", 
+           RowBox[{"-", "1"}]}], "}"}], ",", "2"}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"col3D", "=", 
+      RowBox[{"ColorCombine", "[", 
+       RowBox[{"{", 
+        RowBox[{"x3f", ",", "y3f", ",", "z3f"}], "}"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"err", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Mean", "[", 
+         RowBox[{"Mean", "[", 
+          RowBox[{"Flatten", "[", 
+           RowBox[{
+            RowBox[{"ImageData", "[", "#", "]"}], ",", "1"}], "]"}], "]"}], 
+         "]"}], "&"}], "/@", 
+       RowBox[{"ColorSeparate", "[", "col3D", "]"}]}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"col3D2", "=", 
+      RowBox[{"ImageSubtract", "[", 
+       RowBox[{"col3D", ",", "err"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Export", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"StringDrop", "[", 
+         RowBox[{"file", ",", 
+          RowBox[{"-", "4"}]}], "]"}], "<>", "\"\<frame \>\"", "<>", 
+        RowBox[{"ToString", "[", "in", "]"}], "<>", "\"\< 3D diffs.tif\>\""}],
+        ",", "col3D2"}], "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"col4", "=", 
+      RowBox[{"Image3D", "[", 
+       RowBox[{"Reverse", "@", 
+        RowBox[{"Image3DSlices", "[", 
+         RowBox[{
+          RowBox[{"ImageClip", "[", 
+           RowBox[{"col3D2", ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"-", "10"}], ",", "10"}], "}"}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"1", ";;", 
+            RowBox[{"-", "1"}]}], "}"}], ",", "2"}], "]"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"gfp1", "=", 
+      RowBox[{"Import", "[", 
+       RowBox[{"file", ",", 
+        RowBox[{"{", 
+         RowBox[{"\"\<ImageList\>\"", ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Partition", "[", 
+             RowBox[{
+              RowBox[{"Range", "[", 
+               RowBox[{"Import", "[", 
+                RowBox[{"file", ",", "\"\<ImageCount\>\""}], "]"}], "]"}], 
+              ",", "part"}], "]"}], "[", 
+            RowBox[{"[", "in", "]"}], "]"}], "[", 
+           RowBox[{"[", 
+            RowBox[{"2", ";;", 
+             RowBox[{"-", "1"}], ";;", "2"}], "]"}], "]"}]}], "}"}]}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"gfp2", "=", 
+      RowBox[{"Import", "[", 
+       RowBox[{"file", ",", 
+        RowBox[{"{", 
+         RowBox[{"\"\<ImageList\>\"", ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Partition", "[", 
+             RowBox[{
+              RowBox[{"Range", "[", 
+               RowBox[{"Import", "[", 
+                RowBox[{"file", ",", "\"\<ImageCount\>\""}], "]"}], "]"}], 
+              ",", "part"}], "]"}], "[", 
+            RowBox[{"[", 
+             RowBox[{"in", "+", "1"}], "]"}], "]"}], "[", 
+           RowBox[{"[", 
+            RowBox[{"2", ";;", 
+             RowBox[{"-", "1"}], ";;", "2"}], "]"}], "]"}]}], "}"}]}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"gfp", "=", 
+      RowBox[{"ColorCombine", "[", 
+       RowBox[{"Image3D", "/@", 
+        RowBox[{"{", 
+         RowBox[{"gfp1", ",", "gfp2", ",", "gfp1"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"outcol", "=", 
+      RowBox[{"ColorCombine", "[", 
+       RowBox[{"Image3D", "/@", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"outline1", "=", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"GaussianFilter", "[", 
+              RowBox[{
+               RowBox[{"Dilation", "[", 
+                RowBox[{
+                 RowBox[{"EdgeDetect", "[", 
+                  RowBox[{
+                   RowBox[{"FillingTransform", "[", 
+                    RowBox[{"DeleteSmallComponents", "[", 
+                    RowBox[{
+                    RowBox[{"Binarize", "[", 
+                    RowBox[{
+                    RowBox[{"GaussianFilter", "[", 
+                    RowBox[{"#", ",", "2"}], "]"}], ",", "0.005"}], "]"}], 
+                    ",", "100"}], "]"}], "]"}], ",", "1"}], "]"}], ",", "1"}],
+                 "]"}], ",", "2"}], "]"}], "&"}], "/@", 
+            RowBox[{"Image3DSlices", "[", 
+             RowBox[{"ImageResize", "[", 
+              RowBox[{
+               RowBox[{"Image3D", "@", "gfp1"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"512", ",", "512", ",", "90"}], "}"}], ",", 
+               RowBox[{"Resampling", "->", "\"\<Lanczos\>\""}]}], "]"}], 
+             "]"}]}]}], ",", 
+          RowBox[{"outline2", "=", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"GaussianFilter", "[", 
+              RowBox[{
+               RowBox[{"Dilation", "[", 
+                RowBox[{
+                 RowBox[{"EdgeDetect", "[", 
+                  RowBox[{
+                   RowBox[{"FillingTransform", "[", 
+                    RowBox[{"DeleteSmallComponents", "[", 
+                    RowBox[{
+                    RowBox[{"Binarize", "[", 
+                    RowBox[{
+                    RowBox[{"GaussianFilter", "[", 
+                    RowBox[{"#", ",", "2"}], "]"}], ",", "0.005"}], "]"}], 
+                    ",", "100"}], "]"}], "]"}], ",", "1"}], "]"}], ",", "1"}],
+                 "]"}], ",", "2"}], "]"}], "&"}], "/@", 
+            RowBox[{"Image3DSlices", "[", 
+             RowBox[{"ImageResize", "[", 
+              RowBox[{
+               RowBox[{"Image3D", "@", "gfp2"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"512", ",", "512", ",", "90"}], "}"}], ",", 
+               RowBox[{"Resampling", "->", "\"\<Lanczos\>\""}]}], "]"}], 
+             "]"}]}]}], ",", "outline1"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Export", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"StringDrop", "[", 
+         RowBox[{"file", ",", 
+          RowBox[{"-", "4"}]}], "]"}], "<>", "\"\<frame \>\"", "<>", 
+        RowBox[{"ToString", "[", "in", "]"}], "<>", 
+        "\"\< GFP outlines.tif\>\""}], ",", "outcol"}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"final3D", "=", 
+      RowBox[{"ImageAdd", "[", 
+       RowBox[{
+        RowBox[{"ImageAdjust", "[", 
+         RowBox[{"ImageClip", "[", 
+          RowBox[{"col4", ",", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"-", "10"}], ",", "10"}], "}"}]}], "]"}], "]"}], ",", 
+        RowBox[{"ImageResize", "[", 
+         RowBox[{
+          RowBox[{"ImageApply", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"2", " ", 
+              RowBox[{"#", "^", "0.75"}]}], "&"}], ",", 
+            RowBox[{"ImageAdjust", "@", 
+             RowBox[{"GaussianFilter", "[", 
+              RowBox[{
+               RowBox[{"ImageClip", "[", 
+                RowBox[{
+                 RowBox[{"ImageAdjust", "@", "gfp"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"0.03", ",", "1"}], "}"}]}], "]"}], ",", "1"}], 
+              "]"}]}]}], "]"}], ",", 
+          RowBox[{"ImageDimensions", "[", "col4", "]"}], ",", 
+          RowBox[{"Resampling", "->", "\"\<Lanczos\>\""}]}], "]"}]}], "]"}]}],
+      ";", "\[IndentingNewLine]", 
+     RowBox[{"Export", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"StringDrop", "[", 
+         RowBox[{"file", ",", 
+          RowBox[{"-", "4"}]}], "]"}], "<>", "\"\<frame \>\"", "<>", 
+        RowBox[{"ToString", "[", "in", "]"}], "<>", 
+        "\"\< 3D GFP plus matrix.tif\>\""}], ",", "final3D"}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"deriv", "=", 
+      RowBox[{"DerivativeFilter", "[", 
+       RowBox[{"col4", ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"1", ",", "0", ",", "0"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "1", ",", "0"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "1"}], "}"}]}], "}"}], ",", "3"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"derivcol", "=", 
+      RowBox[{"Image3DSlices", "[", 
+       RowBox[{"ImageApply", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"#", "[", 
+           RowBox[{"[", 
+            RowBox[{"1", ";;", 
+             RowBox[{"-", "1"}], ";;", "4"}], "]"}], "]"}], "&"}], ",", 
+         RowBox[{"ColorCombine", "[", "deriv", "]"}]}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Export", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"StringDrop", "[", 
+         RowBox[{"file", ",", 
+          RowBox[{"-", "4"}]}], "]"}], "<>", "\"\<frame \>\"", "<>", 
+        RowBox[{"ToString", "[", "in", "]"}], "<>", 
+        "\"\< 3D derivatives.tif\>\""}], ",", 
+       RowBox[{"Image3D", "[", "derivcol", "]"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"derivcol2", "=", 
+      RowBox[{"Image3DSlices", "[", 
+       RowBox[{"ImageApply", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Flatten", "[", "#", "]"}], "&"}], ",", 
+         RowBox[{"ColorCombine", "[", "deriv", "]"}]}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Export", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"StringDrop", "[", 
+         RowBox[{"file", ",", 
+          RowBox[{"-", "4"}]}], "]"}], "<>", "\"\<frame \>\"", "<>", 
+        RowBox[{"ToString", "[", "in", "]"}], "<>", 
+        "\"\< 3D derivatives2.tif\>\""}], ",", 
+       RowBox[{"Image3D", "[", "derivcol2", "]"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"idderiv", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ImageData", "[", "#", "]"}], "&"}], "/@", "derivcol"}]}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"Export", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"StringDrop", "[", 
+           RowBox[{"file", ",", 
+            RowBox[{"-", "4"}]}], "]"}], "<>", "\"\<frame \>\"", "<>", 
+          RowBox[{"ToString", "[", "in", "]"}], "<>", "\"\< \>\"", "<>", 
+          RowBox[{"StringJoin", "[", 
+           RowBox[{"ToString", "/@", 
+            RowBox[{"PadLeft", "[", 
+             RowBox[{
+              RowBox[{"IntegerDigits", "[", "i", "]"}], ",", "3", ",", "0"}], 
+             "]"}]}], "]"}], "<>", "\"\<.mat\>\""}], ",", 
+         RowBox[{"idderiv", "[", 
+          RowBox[{"[", "i", "]"}], "]"}]}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", 
+         RowBox[{"Length", "[", "idderiv", "]"}]}], "}"}]}], "]"}], ";", 
+     "err"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"in", ",", "1", ",", "15", ",", "1"}], "}"}]}], "]"}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.884955575718624*^9, 3.8849555757207155`*^9}, 
+   3.884955639133611*^9},ExpressionUUID->"fb9d070c-5c8b-49b2-bf73-\
+ba0d5c53759c"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"files", "=", 
+   RowBox[{"Partition", "[", 
+    RowBox[{
+     RowBox[{"FileNames", "[", 
+      RowBox[{"\"\<*.mat\>\"", ",", 
+       RowBox[{"dir", "=", "\"\<User Directory\>\""}]}], "]"}], ",", "90"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"dir", "=", 
+   RowBox[{"DirectoryName", "[", 
+    RowBox[{"files", "[", 
+     RowBox[{"[", 
+      RowBox[{"1", ",", "1"}], "]"}], "]"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"jet", "[", 
+    RowBox[{"u_", "?", "NumericQ"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"Blend", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", 
+          RowBox[{"RGBColor", "[", 
+           RowBox[{"0", ",", "0", ",", 
+            RowBox[{"9", "/", "16"}]}], "]"}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"7", "/", "63"}], ",", "Blue"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"23", "/", "63"}], ",", "Cyan"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"39", "/", "63"}], ",", "Yellow"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"47", "/", "63"}], ",", "Orange"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"55", "/", "63"}], ",", "Red"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", 
+          RowBox[{"RGBColor", "[", 
+           RowBox[{
+            RowBox[{"1", "/", "2"}], ",", "0", ",", "0"}], "]"}]}], "}"}]}], 
+       "}"}], ",", "u"}], "]"}], "/;", 
+    RowBox[{"0", "<=", "u", "<=", "1"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"shearmod", "=", 
+   RowBox[{"28", "/", 
+    RowBox[{"(", 
+     RowBox[{"2", " ", 
+      RowBox[{"(", 
+       RowBox[{"1", "+", "0.25"}], ")"}]}], ")"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"force", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"mat", "=", 
+         RowBox[{
+          RowBox[{"Import", "[", 
+           RowBox[{"files", "[", 
+            RowBox[{"[", 
+             RowBox[{"f", ",", "z"}], "]"}], "]"}], "]"}], "[", 
+          RowBox[{"[", "1", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"dims", "=", 
+         RowBox[{"Dimensions", "[", "mat", "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"strainT", "=", 
+            RowBox[{"DiagonalMatrix", "[", 
+             RowBox[{"mat", "[", 
+              RowBox[{"[", 
+               RowBox[{"i", ",", "j"}], "]"}], "]"}], "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"stressT", "=", 
+            RowBox[{"strainT", "*", "2", "*", "shearmod"}]}], ";", 
+           RowBox[{"strainT", "=."}], ";", "\[IndentingNewLine]", 
+           RowBox[{"eigVa", "=", 
+            RowBox[{"Eigenvalues", "[", "stressT", "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"eigVe", "=", 
+            RowBox[{"Eigenvectors", "[", "stressT", "]"}]}], ";", 
+           RowBox[{"stressT", "=."}], ";", 
+           RowBox[{"eigVe", "=."}], ";", "\[IndentingNewLine]", 
+           RowBox[{"fmag", "=", 
+            RowBox[{"Sqrt", "[", 
+             RowBox[{"Total", "[", 
+              RowBox[{"eigVa", "^", "2"}], "]"}], "]"}]}], ";", 
+           RowBox[{"eigVa", "=."}], ";", "\[IndentingNewLine]", "fmag"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", 
+            RowBox[{"dims", "[", 
+             RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"j", ",", 
+            RowBox[{"dims", "[", 
+             RowBox[{"[", "2", "]"}], "]"}]}], "}"}]}], "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"z", ",", 
+         RowBox[{"Length", "[", 
+          RowBox[{"files", "[", 
+           RowBox[{"[", "f", "]"}], "]"}], "]"}]}], "}"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"f", ",", 
+       RowBox[{"Length", "[", "files", "]"}]}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"imgs", "=", 
+   RowBox[{"0.05", " ", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"ImageClip", "[", 
+           RowBox[{
+            RowBox[{"#", "-", 
+             RowBox[{"Mean", "[", "#", "]"}]}], ",", 
+            RowBox[{"{", 
+             RowBox[{"0", ",", "100"}], "}"}]}], "]"}], "&"}], "@", 
+         RowBox[{"Image", "[", "#", "]"}]}], "&"}], "/@", 
+       RowBox[{"force", "[", 
+        RowBox[{"[", "i", "]"}], "]"}]}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", 
+        RowBox[{"Length", "[", "force", "]"}]}], "}"}]}], "]"}]}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"StringDrop", "[", 
+      RowBox[{
+       RowBox[{"files", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+       RowBox[{"-", "10"}]}], "]"}], "<>", "\"\< mag forces.tif\>\""}], ",", 
+    RowBox[{"Flatten", "[", "imgs", "]"}]}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"memax", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Colorize", "[", 
+         RowBox[{"#", ",", 
+          RowBox[{"ColorFunction", "->", "jet"}]}], "]"}], "&"}], "/@", 
+       RowBox[{"ColorSeparate", "[", 
+        RowBox[{"ImageApply", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Mean", "[", "#", "]"}], ",", 
+             RowBox[{"Max", "[", "#", "]"}]}], "}"}], "&"}], ",", 
+          RowBox[{"ColorCombine", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"ImageClip", "[", 
+              RowBox[{
+               RowBox[{"#", "-", 
+                RowBox[{"Mean", "[", "#", "]"}]}], ",", 
+               RowBox[{"{", 
+                RowBox[{"0", ",", "20"}], "}"}]}], "]"}], "&"}], "/@", "#"}], 
+           "]"}]}], "]"}], "]"}]}], ")"}], "&"}], "/@", "imgs"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"StringDrop", "[", 
+      RowBox[{
+       RowBox[{"files", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+       RowBox[{"-", "10"}]}], "]"}], "<>", "\"\< mean forces.tif\>\""}], ",", 
+    RowBox[{"memax", "[", 
+     RowBox[{"[", 
+      RowBox[{"All", ",", "1"}], "]"}], "]"}]}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"StringDrop", "[", 
+      RowBox[{
+       RowBox[{"files", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+       RowBox[{"-", "10"}]}], "]"}], "<>", "\"\< max forces.tif\>\""}], ",", 
+    RowBox[{"memax", "[", 
+     RowBox[{"[", 
+      RowBox[{"All", ",", "2"}], "]"}], "]"}]}], "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.884955557964594*^9, 
+  3.8849555579655905`*^9}},ExpressionUUID->"9e1ceaa3-ae0a-46ad-913c-\
+5f7512699682"]
+},
+WindowSize->{1428., 729.75},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"13.0 for Microsoft Windows (64-bit) (February 4, 2022)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"a710e1a6-341f-43be-af65-60b8ace42eee"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 34481, 924, 1456, "Input",ExpressionUUID->"fb9d070c-5c8b-49b2-bf73-ba0d5c53759c"],
+Cell[35042, 946, 6982, 205, 333, "Input",ExpressionUUID->"9e1ceaa3-ae0a-46ad-913c-5f7512699682"]
+}
+]
+*)
+
